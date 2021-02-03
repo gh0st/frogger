@@ -1,13 +1,13 @@
-package a2;
+package a3;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 2
+ * Assignment 3
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.2 (October 16, 2012)
+ * @version 0.3 (November 09, 2012)
  */
 public class HopEmptyLilyPadCommand extends AbstractAction {
 	private GameWorld gw;
@@ -20,7 +20,7 @@ public class HopEmptyLilyPadCommand extends AbstractAction {
 		// remove the old frog and create a new frog at the bottom of the world
 		// remove the from from the gameworld objects
 		try {
-			IIterator theElements = gw.froggerIterator;
+			IIterator theElements = gw.getIterator();
 			while (theElements.hasNext()) {
 				GameObject froggerObject = (GameObject)theElements.getNext();
 				if (froggerObject instanceof Frog) {
@@ -32,7 +32,7 @@ public class HopEmptyLilyPadCommand extends AbstractAction {
 			System.out.println(f);
 		}
 		// create a new frog
-		Frog f = new Frog();
+		Frog f = new Frog(gw);
 		// add the frog to the gameobjects collection.
 		gw.addGameObject(f);
 		// increase game score

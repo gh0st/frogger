@@ -1,11 +1,11 @@
-package a2;
+package a3;
 /**
  * Vehicles have a unique VIN; this is a positive integer which is different for
  * every vehicle in the game. For simplicity the first vehicle gets VIN 1, then
- * each new vehicle after that gets the next available integer. Car vehicles also
- * have an integer attribute passengerCount specifying how many passengers the car
- * can carry, while Trucks have an attribute length specifying the length of the
- * truck.
+ * each new vehicle after that gets the next available integer. Car vehicles 
+ * alsohave an integer attribute passengerCount specifying how many passengers 
+ * the car can carry, while Trucks have an attribute length specifying the
+ * length of the truck.
  */
 public class Vehicles extends MovingGameObject implements IMovable {
 	private int vin;
@@ -29,4 +29,9 @@ public class Vehicles extends MovingGameObject implements IMovable {
 		gw.setVehicleVIN(tempVIN);
 		//GameWorld.globalVIN++;
 	}
+	/**
+	 * setColor must be overridden so that you cannot change the color once it's
+	 * been created
+	 */
+	public void setColor() {}
 }

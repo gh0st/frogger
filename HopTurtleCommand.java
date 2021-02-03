@@ -1,13 +1,13 @@
-package a2;
+package a3;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 2
+ * Assignment 3
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.2 (October 16, 2012)
+ * @version 0.3 (November 09, 2012)
  */
 public class HopTurtleCommand extends AbstractAction {
 	private GameWorld gw;

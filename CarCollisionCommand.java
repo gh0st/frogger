@@ -1,13 +1,13 @@
-package a2;
+package a3;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 2
+ * Assignment 3
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.2 (October 16, 2012)
+ * @version 0.3 (November 09, 2012)
  */
 public class CarCollisionCommand extends AbstractAction {
 	private GameWorld gw;
@@ -15,9 +15,8 @@ public class CarCollisionCommand extends AbstractAction {
 		super("1-Car Collision");
 	}
 	public void actionPerformed(ActionEvent e) {
-		// remove the from from the gameworld objects
 		try {
-			IIterator theElements = gw.froggerIterator;
+			IIterator theElements = gw.getIterator();
 			while (theElements.hasNext()) {
 				GameObject froggerObject = (GameObject)theElements.getNext();
 				if (froggerObject instanceof Frog) {

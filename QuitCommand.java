@@ -1,4 +1,4 @@
-package a2;
+package a3;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
@@ -8,7 +8,6 @@ public class QuitCommand extends AbstractAction {
 		super("Quit");
 	}
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Quit requested from "+e.getActionCommand()+" "+e.getSource().getClass());
 		int result = JOptionPane.showConfirmDialog(
 			null,
 			"Are you sure you want to quit?",

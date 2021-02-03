@@ -2,40 +2,43 @@ package a3;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-public class Rock extends FixedGameObject implements IDrawable, ICollider {
-	private int size;
-	public Rock() {
-		setLocation(getRandom(1000), 275);
-		setColor(Color.DARK_GRAY);
-		setSize(getRandom(1));
+public class Bird extends MovingGameObject implements IDrawable, ICollider {
+	private int range;
+	public Bird() {
+		setLocation(getRandom(100,900), getRandom(425,475));
+		setColor(Color.red);
+		setSpeed(1);
+		setDirection(getRandom(90, 270, true), true);
+		setRange(5);
 	}
-	public Rock(int x, int y, int size) {
-		setLocation(x, y);
-		setColor(Color.DARK_GRAY);
-		setSize(size);
-	}
-	/**
-	 * Gets the size of the Rock
-	 * @return int the size of the rock either small (1) or large (2)
-	 */
-	public int getSize() {
-		return size;
-	}
-	/**
-	 * Sets the size of the rock
-	 * @param int size of the rock just small (1) and large (2)
-	 */
-	public void setSize(int newSize) {
-		size = newSize;
-	}
-	public String toString() {
-		return "Rock: "+getLocation()+" "+getColor()+" size="+getSize();
-	}
-	public void setColor(int r, int g, int b) {}
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(getColor());
-		g2d.fillRect((getX()-25), (getY()-15), 30, 30);
+		g2d.drawOval((getX()-15), (getY()-15), 30, 30);
+	}
+	public int getRange() {
+		return range;
+	}
+	public void setRange(int r) {
+		range = r;
+	}
+	public void tick(int time) {
+		if (time % 60 == 0)
+			move(time);
+		if (getX() > 999 || getX() < 1 || getY() < 1 || getY() > 499) {
+			setRemoveFlag(true);
+		}
+	}
+	public String toString() {
+		return "Bird: "+getLocation()+" "+getColor()+" speed="+getSpeed()+" dir="+getDirection()+"degrees";
+	}
+	public void move(int elapsedMillisecs) {
+		int currX = getX();
+		int currY = getY();
+		int dist = getSpeed();
+		double dx = Math.cos(Math.toRadians(getDirection()))*dist;
+		double dy = Math.sin(Math.toRadians(getDirection()))*dist;
+		setLocation(currX+dy, currY+dx);
 	}
 	public boolean collidesWith(ICollider obj) {
 		boolean result = false;

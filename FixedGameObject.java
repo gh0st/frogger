@@ -1,3 +1,9 @@
-package a2;
-/** This class is the abstract superclass which all fixed objects are inhereted from */
-abstract class FixedGameObject extends GameObject {}
+package a3;
+/** 
+ * This class is the abstract superclass which all fixed objects are inhereted
+ * from.
+ */
+public abstract class FixedGameObject extends GameObject {
+	public void setLocation() {}
+	public void setColor() {}
+}

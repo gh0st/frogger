@@ -1,14 +1,15 @@
-package a2;
+package a3;
 import java.awt.Color;
+import java.awt.Graphics;
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.LineBorder;
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 2
+ * Assignment 3
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.2 (October 16, 2012)
+ * @version 0.3 (November 09, 2012)
  * This is the "controller" of the MVC architecture
  */
 public class ScoreView extends JPanel implements IObserver {

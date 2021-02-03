@@ -1,25 +1,59 @@
-package a2;
-/** Add a <b>f</b>rog to the world at a randomly-chosen X location along the bottom (grass) */
-public class Frog extends MovingGameObject implements IHoppable, IMovable {
-	public Frog() {
+package a3;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.io.File;
+/** 
+ * Add a <b>f</b>rog to the world at a randomly-chosen X location along the
+ * bottom (grass)
+ */
+public class Frog extends MovingGameObject implements IDrawable, IHoppable, IMovable, ICollider {
+	private GameWorld gw;
+	private boolean safeFlag = false;
+	private boolean active = true;
+	private Sound myBoingSound;
+	private Sound myDyingSound;
+	private Sound myGameOverSound;
+	private String soundDir = "."+File.separator+"a3"+File.separator+"sounds"+File.separator;
+	/*public Frog() {
 		setColor(0,128,0);
-		setLocation(450, 5);
-	}
-	/*public synchronized Frog getFrog() {
-		if (theFrog == null)
-			theFrog = new Frog();
-		return theFrog;
+		setLocation(500,25);
+		setSize(30, 30);
+		String boingSoundFile = "boing.wav";
+		String boingSoundPath = soundDir+boingSoundFile;
+		myBoingSound = new Sound(boingSoundPath);
+		String dyingSoundFile = "dyingfrog.wav";
+		String dyingSoundPath = soundDir+dyingSoundFile;
+		myDyingSound = new Sound(dyingSoundPath);
+		String myGameOverSoundFile = "gameover.wav";
+		String myGameOverSoundPath = soundDir+myGameOverSoundFile;
+		myGameOverSound = new Sound(myGameOverSoundPath);
 	}*/
+	public Frog(GameWorld gw) {
+		setColor(0,128,0);
+		setLocation(500, 25);
+		setSize(30, 30);
+		String boingSoundFile = "boing.wav";
+		String boingSoundPath = soundDir+boingSoundFile;
+		myBoingSound = new Sound(boingSoundPath);
+		String dyingSoundFile = "dyingfrog.wav";
+		String dyingSoundPath = soundDir+dyingSoundFile;
+		myDyingSound = new Sound(dyingSoundPath);
+		String myGameOverSoundFile = "gameover.wav";
+		String myGameOverSoundPath = soundDir+myGameOverSoundFile;
+		myGameOverSound = new Sound(myGameOverSoundPath);
+		this.gw = gw;
+	}
 	/**
 	 * Kill frog method will only work if there is an active frog to be killed
 	 */
-	public void killFrog(IGameWorld o) {
-		if (o instanceof GameWorld) {
-			GameWorld gw = (GameWorld)o;
-			int currentLives = gw.getFrogLives();
-			gw.setFrogLives(currentLives--);
+	public void killFrog(IGameWorld igw) {
+		if (igw instanceof GameWorld) {
+			GameWorld gw = (GameWorld)igw;
+			myDyingSound.play();
+			gw.setFrogLives((gw.getFrogLives()-1));
 			if (gw.getFrogLives() == -1) {
-				System.out.println("You're out of lives. Game over... =[");
+				myGameOverSound.play();
 			}
 		}
 	}
@@ -28,8 +62,8 @@ public class Frog extends MovingGameObject implements IHoppable, IMovable {
 	 * @param int newX the new x position
 	 * @param int newY the new y position
 	 */
-	public void move(int newX, int newY) {
-		setLocation(newX, newY);
+	public void move(int x, int y) {
+		setLocation(x, y);
 	}
 	/**
 	 * The frog hops given a specified direction a fixed number of spaces which
@@ -37,13 +71,13 @@ public class Frog extends MovingGameObject implements IHoppable, IMovable {
 	 * @param Direction dir either NORTH, SOUTH, EAST, WEST
 	 */
 	public void hop(int dir) {
-		System.out.println("Hop has been called...");
 		switch(dir) {
-			case 1: move(getX(), getY()+10); break;
-			case 2: move(getX(), getY()-10); break;
-			case 3: move(getX()+100, getY()); break;
-			case 4: move(getX()-100, getY()); break;
+			case 1: move(getX(), getY()+50); break;
+			case 2: move(getX(), getY()-50); break;
+			case 3: move(getX()+50, getY()); break;
+			case 4: move(getX()-50, getY()); break;
 		}
+		myBoingSound.play();
 	}
 	/**
 	 * This function is used when a frog hops onto a floating object such as a log
@@ -52,10 +86,13 @@ public class Frog extends MovingGameObject implements IHoppable, IMovable {
 	 * @param int newSpeed is the new speed of the frog
 	 * @param int newDir is the new direction of the frog
 	 */
-	public void matchFloater(int newSpeed, Direction newDir) {
-		System.out.println("Inside matchFloater() with params: newSpeed="+newSpeed+" newDir"+newDir);
-		setSpeed(newSpeed);
-		setDirection(newDir);
+	public void matchFloater(int speed, int headingInDegrees) {
+		System.out.println("Inside matchFloater() with params: speed="+speed+" dir="+headingInDegrees+" degrees");
+		//setSpeed(getY());
+		setDirection(getY());
+	}
+	public void matchFloater(int x) {
+		move(x, getY());
 	}
 	/**
 	 * This function is used when a frog hops onto a lilypad. The effect is the
@@ -66,10 +103,12 @@ public class Frog extends MovingGameObject implements IHoppable, IMovable {
 	 * occupied.
 	 */
 	public boolean matchLilyPad(LilyPad lpad) {			
-		if (lpad.getOccupied() == false) {
+		if (!lpad.getOccupied()) {
 			setLocation(lpad.getX(), lpad.getY());
 			setSpeed(0);
-			System.out.println("The frog is on an empty lilypad!");
+			setDirection(0);
+			setSafeFlag(true);
+			setActive(false);
 			return false;
 		} else {
 			System.out.println("The frog is now on an occupied lilypad!");
@@ -77,7 +116,69 @@ public class Frog extends MovingGameObject implements IHoppable, IMovable {
 			return true;
 		}
 	}
+	public boolean getSafeFlag() {
+		return safeFlag;
+	}
+	public void setSafeFlag(boolean b) {
+		safeFlag = b;
+	}
+	public boolean getActive() {
+		return active;
+	}
+	public void setActive(boolean b) {
+		active = b;
+	}
+	public void tick() {
+		// do nothing unless told to
+	}
 	public String toString() {
-		return "Frog: "+getLocation()+" "+getColor()+" speed="+getSpeed()+" dir="+getDirection();
+		return "Frog: "+getLocation()+" "+getColor()+" speed="+getSpeed()+" dir="+getDirection()+" degrees";
+	}
+	public void draw(Graphics g) {
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.setColor(getColor());
+		g2d.fillOval((getX()-(getWidth()/2)), (getY()-(getHeight()/2)), getWidth(), getHeight());
+	}
+	public boolean collidesWith(ICollider obj) {
+		boolean result = false;
+		// cast obj as a gameObject
+		GameObject g = (GameObject)obj;
+		// find the outside sides of the object
+		int thisLeftSide = getX() - (getWidth()/2);
+		int thisRightSide = getX() + (getWidth()/2);
+		int thisTopSide = getY() + (getHeight()/2);
+		int thisBottomSide = getY() - (getHeight()/2);
+		// find the outside sides of the other object
+		int otherLeftSide = g.getX() - (g.getHeight()/2);
+		int otherRightSide = g.getX() + (g.getHeight()/2);
+		int otherTopSide = g.getY() - (g.getHeight()/2);
+		int otherBottomSide = g.getY() + (g.getHeight()/2);
+		
+		if (thisRightSide < otherLeftSide || thisLeftSide > otherRightSide || otherTopSide < thisBottomSide || thisTopSide < otherBottomSide) {
+			result = false;
+		} else {
+			result = true;
+		}
+		return result;
+	}
+	public void handleCollision(ICollider obj) {
+		if (obj instanceof Vehicles || obj instanceof Rock || obj instanceof Bird) {
+			setRemoveFlag(true);
+			killFrog(gw);
+		}
+		if (obj instanceof LilyPad) {
+			LilyPad l = (LilyPad)obj; // cast the object to an instance of LilyPad
+			if (!l.getOccupied()) {
+				matchLilyPad(l);
+			} else if (l.getOccupied()){
+				setRemoveFlag(true);
+				killFrog(gw);
+				gw.notifyObservers();
+			}
+		}
+		if (obj instanceof Floaters) {
+			Floaters f = (Floaters)obj;
+			matchFloater(f.getX());
+		}
 	}
 }

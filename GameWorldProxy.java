@@ -1,17 +1,19 @@
-package a2;
+package a3;
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 2
+ * Assignment 3
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.2 (October 16, 2012)
+ * @version 0.3 (November 09, 2012)
  */
 public class GameWorldProxy implements IObservable, IGameWorld {
-	// code here to accept and hold a GameWorld, provide implementations
-	// of all the public methods in a GameWorld, forward allowed
-	// calls to the actual GameWorld, and reject calls to methods
-	// which the outside should not be able to access in the GameWorld.
+	/**
+	 * Code here to accept and hold a GameWorld, provide implementations of all
+	 * the public methods in a GamewWorld, forward allowed calls to the actual
+	 * GameWorld, and reject calls to methods which the outside should not be
+	 * able to access in the GameWorld.
+	 */
 	private int frogLives;
 	private int gameScore;
 	private int gameTime;
@@ -27,11 +29,10 @@ public class GameWorldProxy implements IObservable, IGameWorld {
 		this.vehicleVIN = gw.getVehicleVIN();
 		this.sound = gw.getSound();
 	}
-	/*public Iterator getIterator() {
-		return realGameWorld.getIterator();
-	}*/
 	public void addObserver(IObserver o) {}
-	public void notifyObservers() {}
+	public void notifyObservers() {
+		realGameWorld.notifyObservers(); // lets try adding this to see if it works
+	}
 	public void addGameObject(GameObject o) {
 		realGameWorld.addGameObject(o);
 	}

@@ -1,13 +1,13 @@
-package a2;
+package a3;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 2
+ * Assignment 3
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.2 (October 16, 2012)
+ * @version 0.3 (November 09, 2012)
  */
 /** Add a truck to the target. */
 public class AddTruckCommand extends AbstractAction {
@@ -19,6 +19,7 @@ public class AddTruckCommand extends AbstractAction {
 		Truck u = new Truck(gw);
 		gw.addGameObject(u);
 		System.out.println("AddTruck requested from "+e.getActionCommand()+" "+e.getSource().getClass());
+		System.out.println(u);
 	}
 	public void setTarget(GameWorld gw) {this.gw = gw;}
 }
