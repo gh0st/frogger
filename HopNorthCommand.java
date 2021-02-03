@@ -1,0 +1,34 @@
+package a2;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+/**
+ * CSC133 Clevenger Fall '12
+ * Assignment 2
+ * Frogger
+ *
+ * @author Chad Hollman (hollmanchad@gmail.com)
+ * @version 0.2 (October 16, 2012)
+ */
+/** Hop the target north. */
+public class HopNorthCommand extends AbstractAction {
+	private GameWorld gw;
+	public HopNorthCommand() {
+		super("Hop North");
+	}
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("HopNorth requested from "+e.getActionCommand()+" "+e.getSource().getClass());
+		try {
+			IIterator theElements = gw.froggerIterator;
+			while (theElements.hasNext()) {
+				GameObject froggerObject = (GameObject)theElements.getNext();
+				if (froggerObject instanceof Frog) {
+					((Frog)froggerObject).hop(1);
+				}
+			}
+			theElements.reset();
+		} catch (NullPointerException f) {
+			System.out.println(f);
+		}
+	}
+	public void setTarget(GameWorld gw) {this.gw = gw;}
+}

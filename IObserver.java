@@ -7,8 +7,6 @@ package a2;
  * @author Chad Hollman (hollmanchad@gmail.com)
  * @version 0.2 (October 16, 2012)
  */
-class Starter {
-	public static void main(String[] args) {
-		Game g = new Game();
-	}
+public interface IObserver {
+	public void update(IObservable o, Object arg);
 }

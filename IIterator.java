@@ -7,8 +7,9 @@ package a2;
  * @author Chad Hollman (hollmanchad@gmail.com)
  * @version 0.2 (October 16, 2012)
  */
-class Starter {
-	public static void main(String[] args) {
-		Game g = new Game();
-	}
+public interface IIterator {
+	public boolean hasNext();
+	public GameObject getNext();
+	public void remove(GameObject theObject);
+	public void reset();
 }
