@@ -9,9 +9,9 @@ Frogger game written in Java. Assignment 3 of CSUS: CSC133 Object Oriented
 Computer Graphics Programming.
 
 ## Installation Instructions
-Extract all .java files to a folder named a3. From a command prompt navigate to
-where all the java files are and compile using javac *.java. Once compiled
-navigate to the parent folder and run java a3.Starter from command prompt.
+Extract all `.java` files to a folder. From a command prompt navigate to where
+all the java files are and compile using `javac *.java`. Once compiled navigate
+to the parent folder and run `java a4.Starter` from command prompt.
 
 ## Bugs/Feature Requests
 Please submit all bugs and feature request to the author above.
