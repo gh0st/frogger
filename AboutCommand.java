@@ -1,14 +1,14 @@
-package a3;
+package a4;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 3
+ * Assignment 4
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.3 (November 09, 2012)
+ * @version 0.4 (November 29, 2012)
  */
 /** Displays a JOptionPane giving name, course, and version of program. */
 public class AboutCommand extends AbstractAction {

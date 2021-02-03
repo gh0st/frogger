@@ -1,15 +1,16 @@
-package a3;
+package a4;
+
+import java.awt.geom.AffineTransform;
+
 import java.lang.Math;
+
 /** 
  * This class is the abstract superclass which all moving objects are inhereted
  * from. 
  */
 public abstract class MovingGameObject extends GameObject {
 	private int speed;
-	//private Direction dir;
 	private int headingInDegrees;
-	//private int speedInUnitsPerSec;
-	//protected enum Direction {NORTH, SOUTH, EAST, WEST}
 	/**
 	 * Moves the object to the specified x- and y-coordinates by calling the
 	 * setLocation()
@@ -29,7 +30,6 @@ public abstract class MovingGameObject extends GameObject {
 	public void move(int elapsedMillisecs) {
 		int currX = getX();
 		int currY = getY();
-		//int dist = speed * (elapsedMillisecs/8000);
 		int dist = speed;
 		int dx = (int)Math.cos(Math.toRadians(headingInDegrees))*dist;
 		int dy = (int)Math.sin(Math.toRadians(headingInDegrees))*dist;

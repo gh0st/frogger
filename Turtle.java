@@ -1,4 +1,4 @@
-package a3;
+package a4;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -51,8 +51,7 @@ public class Turtle extends Floaters implements IDrawable, ICollider, ISelectabl
 			setRemoveFlag(true);
 		}
 	}
-	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;
+	public void draw(Graphics2D g2d) {
 		g2d.setColor(getColor());
 		g2d.fillOval(getX()-(getWidth()/2), getY()-(getHeight()/2), getWidth(), getHeight());
 	}

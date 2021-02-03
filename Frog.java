@@ -1,4 +1,4 @@
-package a3;
+package a4;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +14,7 @@ public class Frog extends MovingGameObject implements IDrawable, IHoppable, IMov
 	private Sound myBoingSound;
 	private Sound myDyingSound;
 	private Sound myGameOverSound;
-	private String soundDir = "."+File.separator+"a3"+File.separator+"sounds"+File.separator;
+	private String soundDir = "."+File.separator+"a4"+File.separator+"sounds"+File.separator;
 	/*public Frog() {
 		setColor(0,128,0);
 		setLocation(500,25);
@@ -134,8 +134,7 @@ public class Frog extends MovingGameObject implements IDrawable, IHoppable, IMov
 	public String toString() {
 		return "Frog: "+getLocation()+" "+getColor()+" speed="+getSpeed()+" dir="+getDirection()+" degrees";
 	}
-	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;
+	public void draw(Graphics2D g2d) {
 		g2d.setColor(getColor());
 		g2d.fillOval((getX()-(getWidth()/2)), (getY()-(getHeight()/2)), getWidth(), getHeight());
 	}

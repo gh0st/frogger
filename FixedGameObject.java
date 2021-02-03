@@ -1,4 +1,4 @@
-package a3;
+package a4;
 /** 
  * This class is the abstract superclass which all fixed objects are inhereted
  * from.

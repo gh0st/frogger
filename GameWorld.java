@@ -1,14 +1,14 @@
-package a3;
+package a4;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Random;
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 3
+ * Assignment 4
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.3 (November 09, 2012)
+ * @version 0.4 (November 29, 2012)
  * This is the "data model" of the MVC architecture
  */
 public class GameWorld implements IObservable, IGameWorld {
@@ -27,7 +27,7 @@ public class GameWorld implements IObservable, IGameWorld {
 	private FroggerCollection froggerObjects;
 	private IIterator froggerIterator;
 	public static LinkedList<IObserver> myObserverList; // list which will contain all our observers
-	private String soundDir = "."+File.separator+"a3"+File.separator+"sounds"+File.separator;
+	private String soundDir = "."+File.separator+"a4"+File.separator+"sounds"+File.separator;
 	private String fileName = "background.wav";
 	private String filePath = soundDir + fileName;
 	private Sound bgSound = new Sound(filePath);
@@ -68,6 +68,7 @@ public class GameWorld implements IObservable, IGameWorld {
 		froggerObjects.add(new Truck(this, 125));
 		froggerObjects.add(new Car(this, 75));
 		froggerObjects.add(new Frog(this));
+		froggerObjects.add(new Bird());
 		if (getSound())
 			bgSound.loop();
 	}
@@ -221,13 +222,22 @@ public class GameWorld implements IObservable, IGameWorld {
 		return r;
 	}
 	public void addGameObjectBatch() {
-		froggerObjects.add(new Log(425));
-		froggerObjects.add(new Turtle(375));
-		froggerObjects.add(new Log(325));
 		froggerObjects.add(new Car(this, 225));
 		froggerObjects.add(new Truck(this, 175));
 		froggerObjects.add(new Truck(this, 125));
 		froggerObjects.add(new Car(this, 75));
 		froggerObjects.add(new Bird());
+		froggerObjects.add(new Turtle(325));
+		froggerObjects.add(new Log(375));
+		froggerObjects.add(new Turtle(425));
+	}
+	public void addGameObjectBatch2() {
+		froggerObjects.add(new Truck(this, 225));
+		froggerObjects.add(new Truck(this, 75));
+		froggerObjects.add(new Car(this, 175));
+		froggerObjects.add(new Car(this, 125));
+		froggerObjects.add(new Log(425));
+		froggerObjects.add(new Turtle(375));
+		froggerObjects.add(new Log(325));
 	}
 }

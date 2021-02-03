@@ -1,4 +1,4 @@
-package a3;
+package a4;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -32,8 +32,7 @@ public class Rock extends FixedGameObject implements IDrawable, ICollider {
 		return "Rock: "+getLocation()+" "+getColor()+" size="+getSize();
 	}
 	public void setColor(int r, int g, int b) {}
-	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;
+	public void draw(Graphics2D g2d) {
 		g2d.setColor(getColor());
 		g2d.fillRect((getX()-25), (getY()-15), 30, 30);
 	}

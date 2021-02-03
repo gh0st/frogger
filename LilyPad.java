@@ -1,4 +1,4 @@
-package a3;
+package a4;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -50,8 +50,7 @@ public class LilyPad extends FixedGameObject implements IDrawable, ICollider {
 	public String toString() {
 		return "LilyPad: "+getLocation()+" "+getColor()+" height="+getLHeight()+" occupied="+getOccupied();
 	}
-	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;
+	public void draw(Graphics2D g2d) {
 		g2d.setColor(getColor());
 		g2d.drawOval(getX()-(getWidth()/2), getY()-(getHeight()/2), getWidth(), getHeight());
 	}

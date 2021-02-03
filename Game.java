@@ -1,17 +1,34 @@
-package a3;
-import java.awt.*;
-import java.awt.event.*;
+package a4;
+
+import java.awt.BorderLayout;
 import java.awt.Graphics;
-import javax.swing.*;
-import javax.swing.border.*;
+import java.awt.GridLayout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.Timer;
+
+import javax.swing.border.TitledBorder;
+
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 3
+ * Assignment 4
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.3 (November 09, 2012)
+ * @version 0.4 (November 29, 2012)
  * This is the "controller" of the MVC architecture
  */
 public class Game extends JFrame implements ActionListener {
@@ -133,6 +150,14 @@ public class Game extends JFrame implements ActionListener {
 		timer = new Timer(DELAY_IN_MSEC, this);
 		timer.start();
 	}
+	
+	/*this.addWindowListener(
+		new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				setAction(quitCommand);
+			}
+		}
+	);*/
 	
 	public void setDeleteButton(boolean b) {
 		if (b) {

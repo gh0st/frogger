@@ -1,15 +1,20 @@
-package a3;
+package a4;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+
+import java.awt.geom.AffineTransform;
+
 import java.util.Random;
+
 /**
  * CSC133 Clevenger Fall '12
- * Assignment 3
+ * Assignment 4
  * Frogger
  *
  * @author Chad Hollman (hollmanchad@gmail.com)
- * @version 0.3 (November 09, 2012)
+ * @version 0.4 (November 29, 2012)
  */
 public abstract class GameObject {
 	private Point location = new Point();
@@ -31,9 +36,6 @@ public abstract class GameObject {
 	public Color getColor() {
 		return objColor;
 	}
-	/*public String getColor() {
-		return "color=["+objColor.getRed()+","+objColor.getGreen()+","+objColor.getBlue()+"]";
-	}*/
 	public void setColor(int r, int g, int b) {
 		objColor = new Color(r, g, b);
 	}
@@ -67,7 +69,7 @@ public abstract class GameObject {
 		return myRNG.nextInt(max);
 	}
 	/**
-	 * Returns a random number between the min param and the max param.
+	 * Returns a random lane number between the min param and the max param.
 	 * @param min The minimum desired value.
 	 * @param max the maximum desired value.
 	 * @return int A value between min and max.
@@ -91,6 +93,16 @@ public abstract class GameObject {
 		}
 		return r;
 	}
+	/**
+	 * Returns a random number between the min param and the max param only if
+	 * the auto param is true
+	 * @param min The minimum desired random value.
+	 * @param max The maximum desired value.
+	 * @param auto Determines whether or not to return an actual lane position or
+	 * an actual random value between the min and max values.
+	 * @return A value between min and max or a lane position based on the min
+	 * and max.
+	 */
 	public int getRandom(int min, int max, boolean auto) {
 		if (auto == true)
 			return (min + (int)(Math.random() * ((max-min)+1)));

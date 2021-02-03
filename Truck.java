@@ -1,18 +1,26 @@
-package a3;
+package a4;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+
+import java.awt.geom.AffineTransform;
+
 public class Truck extends Vehicles implements IDrawable, ICollider, ISelectable {
 	private int length;
 	private boolean selected;
 	private GameWorld gw;
+	private AffineTransform myTranslation, myRotation, myScale;
 	/**
 	 * Default constructor must be passed the GameWorld.
 	 * @param gw the gameworld which will hold the truck so that it has access to
 	 * the global vin.
 	 */
 	public Truck(GameWorld gw) {
+		myTranslation = new AffineTransform();
+		myRotation = new AffineTransform();
+		myScale = new AffineTransform();
 		int y = getRandom(50,250);
 		int x = -25;
 		if (y >= 200 && y < 250) {
@@ -24,7 +32,8 @@ public class Truck extends Vehicles implements IDrawable, ICollider, ISelectable
 		} else if (y >= 50 && y < 100) {
 			x = -5; // start the car on the left hand side of the screen
 		}
-		setLocation(x, y);
+		setLocation(x,y);
+		myTranslation.translate(x,y);
 		setColor(Color.RED);
 		setSpeed();
 		setDirection(getY());
@@ -34,6 +43,9 @@ public class Truck extends Vehicles implements IDrawable, ICollider, ISelectable
 		this.gw = gw;
 	}
 	public Truck(GameWorld gw, int y) {
+		myTranslation = new AffineTransform();
+		myRotation = new AffineTransform();
+		myScale = new AffineTransform();
 		int x = -25;
 		if (y >= 200 && y < 250) {
 			x = 1025; // start the car on the right hand side of the screen
@@ -44,7 +56,8 @@ public class Truck extends Vehicles implements IDrawable, ICollider, ISelectable
 		} else if (y >= 50 && y < 100) {
 			x = -5; // start the car on the left hand side of the screen
 		}
-		setLocation(x, y);
+		setLocation(x,y);
+		myTranslation.translate(x,y);
 		setColor(Color.RED);
 		setSpeed();
 		setDirection(getY());
@@ -53,10 +66,19 @@ public class Truck extends Vehicles implements IDrawable, ICollider, ISelectable
 		setVIN(gw.getVehicleVIN(), gw);
 		this.gw = gw;
 	}
-	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;
+	public void draw(Graphics2D g2d) {
+		/* removing this in favor of affinetransforms
 		g2d.setColor(getColor());
-		g2d.drawRect(getX()-(getWidth()/2), getY()-(getHeight()/2), getWidth(), getHeight());
+		g2d.drawRect(getX()-(getWidth()/2), getY()-(getHeight()/2), getWidth(), getHeight());*/
+		
+		AffineTransform saveAT = g2d.getTransform();
+		
+		g2d.transform(myTranslation);
+		g2d.setColor(getColor());
+		g2d.drawRect(0,0,getWidth(),getHeight());
+		
+		g2d.setTransform(saveAT);
+		return;
 	}
 	public int getLength() {
 		return length;
@@ -66,6 +88,15 @@ public class Truck extends Vehicles implements IDrawable, ICollider, ISelectable
 	}
 	public String toString() {
 		return "Truck: "+getLocation()+" "+getColor()+" speed="+getSpeed()+" dir="+getDirection()+" length="+getLength()+" vin="+getVIN();
+	}
+	public void move(int elapsedMillisecs) {
+		int currX = getX();
+		int currY = getY();
+		int dist = getSpeed();
+		int dx = (int)Math.cos(Math.toRadians(getDirection()))*dist;
+		int dy = (int)Math.sin(Math.toRadians(getDirection()))*dist;
+		setLocation(currX+dy, currY+dx);
+		translate(dy,dx);
 	}
 	public boolean collidesWith(ICollider obj) {
 		boolean result = false;
@@ -116,5 +147,14 @@ public class Truck extends Vehicles implements IDrawable, ICollider, ISelectable
 		} else {
 			return false;
 		}
+	}
+	public void rotate(double degrees) {
+		myRotation.rotate(Math.toRadians(degrees));
+	}
+	public void scale(double sx, double sy) {
+		myScale.scale(sx, sy);
+	}
+	public void translate(double dx, double dy) {
+		myTranslation.translate(dx, dy);
 	}
 }

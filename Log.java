@@ -1,14 +1,22 @@
-package a3;
+package a4;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+
+import java.awt.geom.AffineTransform;
+
 public class Log extends Floaters implements IDrawable, ICollider, ISelectable {
 	private int length;
 	private boolean occupied;
 	private boolean selected;
 	private Frog occupant;
+	private AffineTransform myTranslation, myRotation, myScale;
 	public Log() {
+		myTranslation = new AffineTransform();
+		myRotation = new AffineTransform();
+		myScale = new AffineTransform();
 		setLocation(-5, getRandom(300, 450));
 		super.setColor(165,42,42);
 		setSpeed();
@@ -18,6 +26,9 @@ public class Log extends Floaters implements IDrawable, ICollider, ISelectable {
 		setBouy(getRandom(1,6));
 	}
 	public Log(int y) {
+		myTranslation = new AffineTransform();
+		myRotation = new AffineTransform();
+		myScale = new AffineTransform();
 		setLocation(-5, y);
 		super.setColor(165,42,42);
 		setSpeed();
@@ -26,14 +37,13 @@ public class Log extends Floaters implements IDrawable, ICollider, ISelectable {
 		setSize(length*50, 30);
 		setBouy(getRandom(1,6));
 	}
-	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;
+	public void draw(Graphics2D g2d) {
 		g2d.setColor(getColor());
 		g2d.fillRect(getX()-(getWidth()/2), getY()-(getHeight()/2), getWidth(), getHeight());
 		if (getOccupied() == true) {
 			g2d.setColor(getColor());
 			g2d.fillRect(getX()-(getWidth()/2), getY()-(getHeight()/2), getWidth(), getHeight());
-			getOccupant().draw(g);
+			getOccupant().draw(g2d);
 		}
 	}
 	public int getLength() {
@@ -78,13 +88,7 @@ public class Log extends Floaters implements IDrawable, ICollider, ISelectable {
 		}
 		return result;
 	}
-	public void handleCollision(ICollider obj) {
-		/*if (obj instanceof Frog) {
-			Frog f = (Frog)obj;
-			setOccupied(true);
-			setOccupant(f);
-		}*/
-	}
+	public void handleCollision(ICollider obj) {}
 	public void setSelected(boolean b) {
 		selected = b;
 		if (b) {
