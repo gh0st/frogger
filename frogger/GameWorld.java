@@ -27,7 +27,7 @@ public class GameWorld implements IObservable, IGameWorld {
 	private FroggerCollection froggerObjects;
 	private IIterator froggerIterator;
 	public static LinkedList<IObserver> myObserverList; // list which will contain all our observers
-	private String soundDir = "."+File.separator+"sounds"+File.separator;
+	private String soundDir = "."+File.separator+"frogger"+File.separator+"sounds"+File.separator;
 	private String fileName = "background.wav";
 	private String filePath = soundDir + fileName;
 	private Sound bgSound = new Sound(filePath);

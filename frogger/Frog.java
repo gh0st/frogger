@@ -14,7 +14,7 @@ public class Frog extends MovingGameObject implements IDrawable, IHoppable, IMov
 	private Sound myBoingSound;
 	private Sound myDyingSound;
 	private Sound myGameOverSound;
-	private String soundDir = "."+File.separator+"sounds"+File.separator;
+	private String soundDir = "."+File.separator+"frogger"+File.separator+"sounds"+File.separator;
 	/*public Frog() {
 		setColor(0,128,0);
 		setLocation(500,25);
